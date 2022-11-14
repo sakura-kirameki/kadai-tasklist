@@ -3,10 +3,7 @@ class TasksController < ApplicationController
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
   
   def index
-    if logged_in?
-     @task = current_user.tasks.build #form_with
-     @tasks = current_user.tasks
-    end
+    @tasks = current_user.tasks
   end
 
   def show
@@ -34,7 +31,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       flash[:success] = 'Task は正常に更新されました'
-      redirect_to @tasks
+      redirect_to @task
     else
       flash.now[:danger] = 'Task は更新されませんでした'
       render :edit
